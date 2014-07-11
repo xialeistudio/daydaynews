@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+	<title>{{ title }}</title>
+	<link rel="stylesheet" href="/public/library/angular-ui/css/mobile-angular-ui-hover.min.css" />
+	<link rel="stylesheet" href="/public/library/angular-ui/css/mobile-angular-ui-base.min.css" />
+	<link rel="stylesheet" href="/public/library/angular-ui/css/mobile-angular-ui-desktop.min.css" />
+	<link rel="stylesheet" href="/public/library/angular-loading-bar/loading-bar.min.css" />
+	<link rel="stylesheet" href="/public/css/style.css" />
+	<script src="/public/library/angular/angular.min.js"></script>
+	<script src="/public/library/angular/angular-route.min.js"></script>
+	<script src="/public/library/angular/angular-touch.min.js"></script>
+	<script src="/public/library/angular-ui/js/mobile-angular-ui.min.js"></script>
+	<script src="/public/library/angular-loading-bar/loading-bar.min.js"></script>
+	<script src="/public/js/app.js"></script>
+</head>
+<body ng-controller="MainCtrl">
+<div ng-include="'/templates/sidebar.html'" class="sidebar sidebar-left" toggleable parent-active-class="sidebar-left-in" id="mainSidebar"></div>
+<!--header-->
+<div class="app">
+	<!--navbar-->
+	<nav class="navbar navbar-app navbar-absolute-top">
+		<div class="navbar-brand navbar-brand-center">
+			<span>微新闻</span>
+		</div>
+		<div class="btn-group pull-left">
+			<div ng-click="toggle('mainSidebar')" class="btn btn-navbar sidebar-toggle">
+				<i class="fa fa-bars"></i>
+			</div>
+		</div>
+	</nav>
+	<div class="app-body" ng-class="{loading: loading}">
+		<div ng-show="loading" class="app-content-loading">
+			<i class="fa fa-spinner fa-spin loading-spinner"></i>
+		</div>
+
+		<ng-view class="app-content container" ng-hide="loading"></ng-view>
+	</div>
+	<!--bottom-->
+	<footer>
+		<nav class="navbar navbar-app navbar-absolute-bottom">
+			<div class="btn-group justified">
+				<a href="/" class="btn btn-navbar"><i class="fa fa-home"></i> 首页</a>
+				<a href="/category" class="btn btn-navbar"><i class="fa fa-list"></i> 分类</a>
+			</div>
+		</nav>
+	</footer>
+</div>
+</body>
+</html>

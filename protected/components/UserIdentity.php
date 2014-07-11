@@ -7,6 +7,7 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	private $_id;
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -17,17 +18,29 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
-			// username => password
-			'demo'=>'demo',
-			'admin'=>'admin',
-		);
-		if(!isset($users[$this->username]))
-			$this->errorCode=self::ERROR_USERNAME_INVALID;
-		elseif($users[$this->username]!==$this->password)
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-		else
-			$this->errorCode=self::ERROR_NONE;
+		/** @var $user User */
+		$user = User::model()->findByPk($this->username);
+		if(empty($user)){
+			$this->errorCode = self::ERROR_USERNAME_INVALID;
+			$this->errorMessage = '用户不存在';
+		}else{
+			$this->_id = $user->openid;
+			$this->setState('nickname',$user->nickname);
+			$this->setState('login_at',$user->login_at);
+			$this->setState('avatar',$user->avatar);
+			//更新登陆时间
+			$user->login_at = time();
+			//积分增加
+			UserService::getInstance()->increaseScore('login',$user);
+			$user->save();
+			$this->errorCode = self::ERROR_NONE;
+		}
+
 		return !$this->errorCode;
+	}
+
+	public function getId()
+	{
+		return $this->_id;
 	}
 }
