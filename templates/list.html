@@ -1,0 +1,15 @@
+<div class="scrollable" ng-init="load()">
+	<div class="scrollable-content" when-scrolled="loadMore()">
+		<div class="list-group">
+			<a href="/news/{{ news.news_id }}" class="list-group-item media" ng-repeat="news in newses">
+				<div class="pull-right thumb">
+					<img src="/public/img/loading.gif" ng-src="{{ news.thumb }}-thumb" class="img-responsive img-rounded" alt="{{ news.title }}" />
+				</div>
+				<div class="media-body">
+					<h3>{{ news.title | limitTo:12}}</h3>
+					<span>{{ news.description | limitTo:18}}</span>
+				</div>
+			</a>
+		</div>
+	</div>
+</div>

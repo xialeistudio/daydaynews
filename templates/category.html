@@ -1,1 +1,9 @@
-category
+<div class="scrollable" ng-init="load_category()">
+	<div class="scrollable-content">
+		<div class="list-group">
+			<a href="/category/{{ category.category_id }}"  ng-repeat="category in categories" class="list-group-item">
+				{{ category.title }} <i class="fa fa-angle-double-right pull-right"></i>
+			</a>
+		</div>
+	</div>
+</div>

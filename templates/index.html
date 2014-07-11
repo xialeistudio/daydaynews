@@ -1,15 +1,15 @@
 <div ng-init="load()" class="scrollable">
-<div class="scrollable-content">
+<div class="scrollable-content" when-scrolled="loadMore()">
 	<div class="list-group">
-		<div class="list-group-item media">
-			<div class="pull-right">
-				<i class="fa fa-gamepad feature-icon text-primary"></i>
+		<a href="/news/{{ news.news_id }}" class="list-group-item media" ng-repeat="news in newses">
+			<div class="pull-right thumb">
+				<img src="/public/img/loading.gif" ng-src="{{ news.thumb }}-thumb" class="img-responsive img-rounded" alt="{{ news.title }}" />
 			</div>
 			<div class="media-body">
-				<h3>天气不错天气不错天气不错</h3>
-				<span>天气不错天气不错天气不错天气不错天气不错</span>
+				<h3>{{ news.title | limitTo:12}}</h3>
+				<span>{{ news.description | limitTo:18}}</span>
 			</div>
-		</div>
+		</a>
 	</div>
 </div>
 </div>

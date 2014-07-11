@@ -16,6 +16,7 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.services.*'
 	),
 
 	'modules'=>array(
@@ -59,6 +60,9 @@ return array(
 			'password' => 'root',
 			'charset' => 'utf8',
 		),
+		'cache'=>array(
+			'class'=>'CFileCache'
+		),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -85,6 +89,12 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'wechat'=>array(
+			'ak'=>'',
+			'sk'=>''
+		),
+		'QINIU_ACCESS_KEY'=>'8cx_OXU1Ptfb9MzYlvfJ91M0hyoHjFuJcyIgpDu7',
+		'QINIU_SECRET_KEY'=>'cge1kAlIdwWBPIAMZ8bvk_SIFHFqjxWWTWBh4NYX',
+		'QINIU_BUCKET'=>'picturescdn'
 	),
 );
