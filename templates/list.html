@@ -7,7 +7,7 @@
 				</div>
 				<div class="media-body">
 					<h3>{{ news.title | limitTo:12}}</h3>
-					<span>{{ news.description | limitTo:18}}</span>
+					<span>[{{ news.created_at*1000|date:'MM-dd' }}]{{ news.description | limitTo:15}}</span>
 				</div>
 			</a>
 		</div>

@@ -113,13 +113,63 @@ class NewsService extends Service
 		$criteria->limit = $pageSize;
 		$key = "news-category-$category_id-offset-{$criteria->offset}-limit-$pageSize";
 		$data = Yii::app()->cache->get($key);
-		if(empty($data)){
+		if (empty($data))
+		{
 			$data = News::model()->findAll($criteria);
-			Yii::app()->cache->set($key,$data,3600);
+			Yii::app()->cache->set($key, $data, 3600);
 		}
 		return array(
-			'total'=>$count,
-			'data'=>$data
+			'total' => $count,
+			'data' => $data
 		);
+	}
+
+	/**
+	 * 读取文章
+	 * @param int $id
+	 * @return CActiveRecord|mixed
+	 */
+	public function getNews($id = 0)
+	{
+		$key = 'news-' . $id;
+		$data = Yii::app()->cache->get($key);
+		if (empty($data))
+		{
+			$data = News::model()->findByPk($id);
+			//缓存文章正文10分钟
+			Yii::app()->cache->set($key, $data,600);
+		}
+		$this->hits($data);
+		return $data;
+	}
+
+	/**
+	 * 分享+1
+	 * @param $news News
+	 * @return mixed
+	 */
+	public function share($news)
+	{
+		$news->share = $news->share + 1;
+		$news->save();
+		return $news;
+	}
+
+	/**
+	 * 点击数+1
+	 * @param $news News
+	 * @return mixed
+	 */
+	public function hits($news)
+	{
+		//访问量+1
+		$check = Yii::app()->cache->get('news-' . $news->news_id - 'id-' . Yii::app()->request->userHostAddress);
+		if (empty($check))
+		{
+			$news->hits = $news->hits + 1;
+			$news->save();
+			Yii::app()->cache->set('news-' . $news->news_id - 'id-' . Yii::app()->request->userHostAddress, 1);
+		}
+		return $news;
 	}
 } 

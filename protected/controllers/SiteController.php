@@ -56,6 +56,16 @@ class SiteController extends Controller
 
 	public function actionList($id = 0, $page = 1, $size = 20)
 	{
-		echo CJSON::encode(NewsService::instance()->newsList($id,$page,$size));
+		echo CJSON::encode(NewsService::instance()->newsList($id, $page, $size));
+	}
+
+	public function actionNews($id = 0)
+	{
+		echo CJSON::encode(NewsService::instance()->getNews($id));
+	}
+
+	public function actionShare($id = 0)
+	{
+		echo CJSON::encode(NewsService::instance()->share(NewsService::instance()->getNews($id)));
 	}
 }
