@@ -1,4 +1,4 @@
-#daydaynews
+#DayDayNews
 ==========
 
-##a news system based angularjs and yii
+A news system build with angularjs and yii framework
