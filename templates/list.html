@@ -6,10 +6,12 @@
 					<img src="/public/img/loading.gif" ng-src="{{ news.thumb }}-thumb" class="img-responsive img-rounded" alt="{{ news.title }}" />
 				</div>
 				<div class="media-body">
-					<h3>{{ news.title | limitTo:12}}</h3>
-					<span>[{{ news.created_at*1000|date:'MM-dd' }}]{{ news.description | limitTo:15}}</span>
+					<h3>{{ news.title | limitTo:10}}</h3>
+					<span>[{{ news.created_at*1000|date:'MM-dd' }}]{{ news.description | limitTo:12}}</span>
 				</div>
 			</a>
 		</div>
+		<div class="alert alert-info loading text-center" ng-show="busy">加载中...</div>
+		<div class="alert text-center" ng-show="currentPage == pages">已经是最后一页啦!</div>
 	</div>
 </div>

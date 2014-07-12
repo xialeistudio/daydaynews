@@ -10,7 +10,6 @@ app.directive('whenScrolled', function() {
 		elm.bind('scroll', function() {
 			if (raw.scrollTop+raw.offsetHeight >= raw.scrollHeight) {
 				scope.$apply(attr.whenScrolled);
-				//console.log('scroll');
 			}
 		});
 	};
@@ -117,32 +116,32 @@ app.controller('CategoryCtrl', function($routeParams, $http, $scope, $rootScope)
 		}
 	};
 });
-
-app.controller('NewsCtrl',function($routeParams,$http,$scope,$rootScope,$location){
+app.controller('NewsCtrl', function($routeParams, $http, $scope, $rootScope, $location) {
 	var news_id = $routeParams.id;
-	$http.get('/api.php?r=site/news/id/'+news_id).success(function(data){
-		$rootScope.title = data.title.substr(0,18);
+	$http.get('/api.php?r=site/news/id/'+news_id).success(function(data) {
+		$rootScope.title = data.title.substr(0, 18);
 		$scope.news = data;
-		try{
+		try {
 			window.dataForWeixin = {
-				MsgImg:data.thumb,
-				TLImg:data.thumb,
-				link:$location.absUrl(),
-				title:data.title,
-				desc:data.description,
-				callback:function(){
-					$http.get('/api.php?r=site/share/id/'+news_id).success(function(data){
-						console.log(data);
+				MsgImg: data.thumb,
+				TLImg: data.thumb,
+				link: $location.absUrl(),
+				title: data.title,
+				desc: data.description,
+				callback: function() {
+					$http.get('/api.php?r=site/share/id/'+news_id).success(function(data) {
 					});
 				}
 			}
-		}catch (e){
+		}
+		catch (e) {
 			window.dataForWeixin = {};
 		}
 	});
+	$scope.showAuthor = function(author) {
+		alert('请关注公众号:"'+author+'"');
+	}
 });
-
-
 app.filter('html', [
 	'$sce', function($sce) {
 		return function(text) {

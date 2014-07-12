@@ -2,9 +2,8 @@
 	<div class="scrollable-content">
 		<article class="container">
 			<aside>
-				<i class="fa fa-eye-slash"></i> 点击数：{{ news.hits }}
-				<i class="fa fa-share"></i> 分享数：{{ news.share }}
-				<i class="fa fa-calendar"></i> 发表日期：{{ news.created_at*1000|date:'MM-dd' }}
+				<i class="fa fa-calendar"></i> {{ news.created_at*1000|date:'MM-dd' }}
+				<i class="fa fa-user"></i> <a href="#" ng-click="showAuthor(news.wechat)">{{ news.wechat }}</a>
 			</aside>
 			<div class="content" ng-bind-html="news.content|html"></div>
 		</article>
